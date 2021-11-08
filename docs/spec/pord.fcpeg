@@ -1,0 +1,26 @@
+[Aspect]{
+  + use Basic as b,
+  + Algebraic as a,
+  Aspect <- b.Indent "aspect" b.Space b.SymbolU b.Space "{" (PointCut LineBreak Advice)+ "}" b.LineBreakN,
+  PointCut <- b.Indent "pointcut" b.Space b.SymbolU b.Define JoinPointOpr b.LineBreak,
+  Advice <- b.Indent "advice" b.Space b.SymbolU b.Space "at" AdviceType b.Space "{" (b.Indent AdviceBody LineBreak)+ "}" b.LineBreak,
+  AdviceType <- "before" : ("after" (b.Space ("finale" : "error"))?) : "around",
+  JoinPointOpr <- a.SetOperation<JoinPoint>,
+  ?TD JoinPoint,
+  ?TD AdviceBody,
+},
+[Algebraic]{
+  SetOpr <- SetOperation<Set>,
+  TypeOpr <- SetOperation<Type>,
+  ?TD SetOperation<Of>,
+}
+[Basic]{
+  Define <- Space "<-" Space,
+  SymbolU <- [a-z][a-zA-Z0-9_]*,
+  SymbolL <- [a-zA-Z][a-zA-Z0-9_]*,
+  Indent <- (Space{2})*,
+  Space <- " ",
+  LineBreak <- "." LineBreakN,
+  LineBreakB <- "," LineBreakN,
+  LineBreakN <- "\n" : "\r\n" : "\r",
+},

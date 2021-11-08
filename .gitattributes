@@ -1,1 +1,2 @@
 *.fcpeg linguist-language=FCPEG
+*.fcpeg linguist-documentation=false
